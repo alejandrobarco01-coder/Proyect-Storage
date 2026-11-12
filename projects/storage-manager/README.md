@@ -1,33 +1,62 @@
-## @alejandrobarco01-coder/storage-manager
+# @alejandrobarco01-coder/storage-manager
 
-Angular storage utilities. The LocalStorage service is implemented; the Cache Storage API and Showcase are reserved for the companion's part of the project.
+Librería Angular para administrar almacenamiento del navegador con una API tipada. Actualmente incluye el servicio de LocalStorage; el servicio de Cache Storage se integrará en la siguiente parte del proyecto.
 
-### LocalStorageService
+## Instalación
 
-Inject `LocalStorageService` to save JSON-serializable values and retrieve them with a type of your choice:
+Después de publicar el paquete en NPM, instálalo en una aplicación Angular:
+
+```bash
+npm install @alejandrobarco01-coder/storage-manager
+```
+
+## Uso de LocalStorageService
+
+Inyecta `LocalStorageService` en el servicio o componente de tu aplicación. Los valores se guardan como JSON, por lo que se admiten valores primitivos, arreglos y objetos serializables.
 
 ```ts
 import { LocalStorageService } from '@alejandrobarco01-coder/storage-manager';
 
-constructor(private readonly storage: LocalStorageService) {}
+export class PreferenciasService {
+  constructor(private readonly almacenamiento: LocalStorageService) {}
 
-savePreferences(): void {
-  this.storage.setItem('preferences', { theme: 'dark' });
-}
+  guardar(): void {
+    this.almacenamiento.setItem('preferencias', { tema: 'oscuro' });
+  }
 
-readPreferences(): { theme: string } | null {
-  return this.storage.getItem<{ theme: string }>('preferences');
-}
+  consultar(): { tema: string } | null {
+    return this.almacenamiento.getItem<{ tema: string }>('preferencias');
+  }
 
-removePreferences(): void {
-  this.storage.removeItem('preferences');
+  existe(): boolean {
+    return this.almacenamiento.hasItem('preferencias');
+  }
+
+  listarClaves(): string[] {
+    return this.almacenamiento.keys();
+  }
+
+  eliminar(): void {
+    this.almacenamiento.removeItem('preferencias');
+  }
 }
 ```
 
-The service also provides `hasItem(key)` and `keys()`. Missing keys return `null`. Values are serialized as JSON, so `undefined` and values that JSON cannot encode raise `StorageSerializationError`. Browser API failures raise `StorageOperationError`; server-side contexts without LocalStorage raise `StorageUnavailableError`. Keys must contain at least one non-whitespace character.
+## API disponible
 
-`LOCAL_STORAGE` is an injection token that can be replaced with a custom `Storage` implementation. The default provider resolves the browser's LocalStorage safely and returns `null` when the API is unavailable.
+| Elemento | Descripción |
+| --- | --- |
+| `setItem<T>(clave, valor)` | Serializa y guarda un valor. |
+| `getItem<T>(clave)` | Devuelve el valor tipado o `null` si no existe la clave. |
+| `removeItem(clave)` | Elimina una clave existente. No falla si la clave no existe. |
+| `hasItem(clave)` | Indica si existe la clave, incluso si contiene el valor JSON `null`. |
+| `keys()` | Devuelve todas las claves del almacenamiento. |
+| `LOCAL_STORAGE` | Token para inyectar o sustituir la implementación de `Storage`. |
 
-### Build and tests
+Las claves deben tener al menos un carácter que no sea un espacio en blanco. `undefined` y los valores que JSON no puede serializar generan `StorageSerializationError`. Los errores de la API del navegador generan `StorageOperationError`. Si el entorno no ofrece LocalStorage, se genera `StorageUnavailableError`.
 
-Run `npm install`, `npm run build`, and `npm test`. The test configuration requires 100% statement, branch, function, and line coverage for the library.
+## Desarrollo de la librería
+
+Desde la raíz del repositorio, ejecuta `npm install`, `npm test` y `npm run build`. La compilación genera el paquete en `dist/storage-manager`. Las pruebas están configuradas para exigir 100 % de cobertura en sentencias, ramas, funciones y líneas.
+
+La documentación técnica completa se genera con `npm run docs` y se guarda en `documentation/`.

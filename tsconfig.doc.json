@@ -1,0 +1,8 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./out-tsc/doc"
+  },
+  "include": ["projects/storage-manager/src/**/*.ts"],
+  "exclude": ["projects/storage-manager/src/**/*.spec.ts"]
+}

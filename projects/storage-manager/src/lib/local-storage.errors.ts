@@ -1,23 +1,39 @@
-/** The browser does not expose LocalStorage in the current execution context. */
+/** Error lanzado cuando LocalStorage no está disponible en el entorno actual. */
 export class StorageUnavailableError extends Error {
   constructor() {
-    super('LocalStorage is not available in this environment.');
+    super('LocalStorage no está disponible en este entorno.');
     this.name = 'StorageUnavailableError';
   }
 }
 
-/** A value could not be encoded or decoded using JSON. */
+/** Error lanzado cuando un valor no se puede codificar o decodificar como JSON. */
 export class StorageSerializationError extends Error {
+  /**
+   * @param operation Indica si falló la serialización o la deserialización.
+   * @param cause Error original producido por JSON, si existe.
+   */
   constructor(operation: 'serialize' | 'deserialize', cause?: unknown) {
-    super(`Unable to ${operation} a LocalStorage value.`, { cause });
+    const operationName = operation === 'serialize' ? 'serialización' : 'deserialización';
+    super(`No se pudo realizar la operación de ${operationName} del valor de LocalStorage.`, { cause });
     this.name = 'StorageSerializationError';
   }
 }
 
-/** A browser storage operation failed, for example because of a quota limit. */
+/** Error lanzado cuando falla una operación del navegador, por ejemplo por falta de cuota. */
 export class StorageOperationError extends Error {
+  /**
+   * @param operation Operación de almacenamiento que falló.
+   * @param cause Error original del navegador, si existe.
+   */
   constructor(operation: 'set' | 'get' | 'remove' | 'keys' | 'has', cause?: unknown) {
-    super(`LocalStorage ${operation} operation failed.`, { cause });
+    const operationName: Record<typeof operation, string> = {
+      set: 'escritura',
+      get: 'lectura',
+      remove: 'eliminación',
+      keys: 'consulta de claves',
+      has: 'comprobación de existencia',
+    };
+    super(`Falló la operación de ${operationName[operation]} en LocalStorage.`, { cause });
     this.name = 'StorageOperationError';
   }
 }

@@ -1,6 +1,10 @@
 import { InjectionToken } from '@angular/core';
 
-/** Resolve LocalStorage safely so importing the library during server rendering is supported. */
+/**
+ * Resuelve LocalStorage de forma segura y permite importar la librería durante el renderizado del servidor.
+ * @param host Objeto global del entorno; se puede sustituir para pruebas.
+ * @returns La implementación de LocalStorage o `null` si no está disponible o el acceso está bloqueado.
+ */
 export function browserLocalStorageFactory(host: typeof globalThis | null = globalThis): Storage | null {
   if (host === null) {
     return null;
@@ -12,7 +16,7 @@ export function browserLocalStorageFactory(host: typeof globalThis | null = glob
   }
 }
 
-/** Injection token that can be replaced with a storage implementation in tests or applications. */
+/** Token de inyección que se puede reemplazar por otra implementación de Storage. */
 export const LOCAL_STORAGE = new InjectionToken<Storage | null>('LOCAL_STORAGE', {
   providedIn: 'root',
   factory: browserLocalStorageFactory,

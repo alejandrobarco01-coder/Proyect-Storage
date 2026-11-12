@@ -1,0 +1,1125 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Storage Manager</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">Storage Manager</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search">
+    <input type="text" placeholder="Escribe para buscar">
+    <button type="button"
+        class="search-input-clear"
+        aria-label="Clear search"
+        data-search-input-clear>&times;</button>
+</div>
+            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content injectable">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Inyectables</li>
+  <li class="breadcrumb-item" >LocalStorageService</li>
+</ol>
+
+<div class="io-file io-file-path" data-compodoc="entity-file-path">
+    <span class="icon ion-ios-document" aria-hidden="true"></span>
+    <code>projects/storage-manager/src/lib/local-storage.service.ts</code>
+</div>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#api" 
+                class="nav-link"
+                
+                role="tab" id="api-tab" data-bs-toggle="tab" data-link="api">API</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+
+            <p class="comment">
+                <h3>Descripción</h3>
+            </p>
+            <p class="comment">
+                <p>Servicio para acceder a LocalStorage con tipos y serialización JSON.
+Los errores del navegador se exponen mediante clases específicas para distinguir
+fallos de serialización, disponibilidad y operaciones de almacenamiento.</p>
+
+            </p>
+
+
+        <section data-compodoc="block-metadata">
+            <h3>Meta datos</h3>
+            <table class="table table-sm table-hover metadata">
+                <tbody>
+                    <tr>
+                        <td class="col-md-3">providedIn</td>
+                        <td class="col-md-9"><code>root</code></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+
+            </div>
+
+    <div class="tab-pane fade " id="api">
+            <section data-compodoc="block-index">
+    <h3 id="index">Índice</h3>
+
+        <table class="table table-sm table-bordered index-table">
+            <tbody>
+                <tr>
+                    <td class="col-md-3">
+                        <h6><b>Métodos</b></h6>
+                    </td>
+                    <td class="col-md-9">
+                        <ul class="index-list">
+                            <li>
+                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                    <span class="modifier">Private</span>
+                                <a href="#assertKey" >assertKey</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                <a href="#getItem" >getItem</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                <a href="#hasItem" >hasItem</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                <a href="#keys" >keys</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                <a href="#removeItem" >removeItem</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                <a href="#setItem" >setItem</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                    <span class="modifier">Private</span>
+                                <a href="#withStorage" >withStorage</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+
+
+
+
+</section>
+
+            <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(storage: Storage | null)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Definido en <a href="" data-line="11" class="link-to-prism">projects/storage-manager/src/lib/local-storage.service.ts:11</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Crea el servicio con la implementación de almacenamiento inyectada.</p>
+</div>
+                            <div>
+                                    <b>Parámetros :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Nombre</td>
+                                                    <td>Tipo</td>
+                                                <td>Opcional</td>
+                                                    <td>Descripción</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>storage</td>
+                                                  
+                                                        <td>
+                                                                    <code>Storage | null</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                        <td>
+                                                                <p>Implementación de Storage; puede ser <code>null</code> si el navegador no la ofrece.</p>
+
+                                                        </td>
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+            <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Métodos
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="assertKey"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>assertKey</b></span>
+                        <a href="#assertKey"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>assertKey(key: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Definido en <a href="" data-line="114"
+                                    class="link-to-prism">projects/storage-manager/src/lib/local-storage.service.ts:114</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parámetros :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Nombre</td>
+                                                <td>Tipo</td>
+                                            <td>Opcional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>key</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Devuelve : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getItem"></a>
+                    <span class="name">
+                        <span ><b>getItem</b></span>
+                        <a href="#getItem"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getItem&lt;T&gt;(key: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Definido en <a href="" data-line="56"
+                                    class="link-to-prism">projects/storage-manager/src/lib/local-storage.service.ts:56</a></div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <b>Parámetros de tipo :</b>
+                            <ul class="type-parameters">
+                                    <li>T</li>
+                            </ul>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Consulta un valor y lo convierte desde JSON al tipo indicado.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parámetros :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Nombre</td>
+                                                <td>Tipo</td>
+                                            <td>Opcional</td>
+                                                <td>Descripción</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>key</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Clave que se desea consultar.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Devuelve : </b>    <code>T | null</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>El valor guardado o <code>null</code> si la clave no existe.</p>
+
+                            </div>
+                            <div class="io-description">
+                                <b>Throws :</b>
+                                <ul>
+                                        <li><p>Si la clave está vacía o contiene solo espacios.</p>
+</li>
+                                        <li><p>Si el contenido guardado no es JSON válido.</p>
+</li>
+                                        <li><p>Si LocalStorage no está disponible.</p>
+</li>
+                                        <li><p>Si el navegador rechaza la lectura.</p>
+</li>
+                                </ul>
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="hasItem"></a>
+                    <span class="name">
+                        <span ><b>hasItem</b></span>
+                        <a href="#hasItem"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>hasItem(key: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Definido en <a href="" data-line="90"
+                                    class="link-to-prism">projects/storage-manager/src/lib/local-storage.service.ts:90</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Comprueba si existe una clave, incluso si su valor guardado es JSON <code>null</code>.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parámetros :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Nombre</td>
+                                                <td>Tipo</td>
+                                            <td>Opcional</td>
+                                                <td>Descripción</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>key</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Clave que se desea comprobar.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Devuelve : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p><code>true</code> si existe; en caso contrario, <code>false</code>.</p>
+
+                            </div>
+                            <div class="io-description">
+                                <b>Throws :</b>
+                                <ul>
+                                        <li><p>Si la clave está vacía o contiene solo espacios.</p>
+</li>
+                                        <li><p>Si LocalStorage no está disponible.</p>
+</li>
+                                        <li><p>Si el navegador rechaza la consulta.</p>
+</li>
+                                </ul>
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="keys"></a>
+                    <span class="name">
+                        <span ><b>keys</b></span>
+                        <a href="#keys"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>keys()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Definido en <a href="" data-line="101"
+                                    class="link-to-prism">projects/storage-manager/src/lib/local-storage.service.ts:101</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Obtiene todas las claves actualmente guardadas en LocalStorage.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Devuelve : </b>    <code>string[]</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Lista de claves en el orden expuesto por el navegador.</p>
+
+                            </div>
+                            <div class="io-description">
+                                <b>Throws :</b>
+                                <ul>
+                                        <li><p>Si LocalStorage no está disponible.</p>
+</li>
+                                        <li><p>Si el navegador rechaza la consulta.</p>
+</li>
+                                </ul>
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="removeItem"></a>
+                    <span class="name">
+                        <span ><b>removeItem</b></span>
+                        <a href="#removeItem"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>removeItem(key: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Definido en <a href="" data-line="77"
+                                    class="link-to-prism">projects/storage-manager/src/lib/local-storage.service.ts:77</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Elimina una clave; no produce error si no existía.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parámetros :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Nombre</td>
+                                                <td>Tipo</td>
+                                            <td>Opcional</td>
+                                                <td>Descripción</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>key</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Clave que se desea eliminar.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Devuelve : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                            <div class="io-description">
+                                <b>Throws :</b>
+                                <ul>
+                                        <li><p>Si la clave está vacía o contiene solo espacios.</p>
+</li>
+                                        <li><p>Si LocalStorage no está disponible.</p>
+</li>
+                                        <li><p>Si el navegador rechaza la eliminación.</p>
+</li>
+                                </ul>
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setItem"></a>
+                    <span class="name">
+                        <span ><b>setItem</b></span>
+                        <a href="#setItem"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>setItem&lt;T&gt;(key: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, value: T)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Definido en <a href="" data-line="28"
+                                    class="link-to-prism">projects/storage-manager/src/lib/local-storage.service.ts:28</a></div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <b>Parámetros de tipo :</b>
+                            <ul class="type-parameters">
+                                    <li>T</li>
+                            </ul>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Guarda un valor primitivo u objeto bajo la clave indicada.
+El valor se serializa como JSON antes de almacenarse.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parámetros :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Nombre</td>
+                                                <td>Tipo</td>
+                                            <td>Opcional</td>
+                                                <td>Descripción</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>key</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Clave no vacía para el valor.</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>value</td>
+                                            <td>
+                                                        <code>T</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Valor compatible con la serialización JSON.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Devuelve : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                            <div class="io-description">
+                                <b>Throws :</b>
+                                <ul>
+                                        <li><p>Si la clave está vacía o contiene solo espacios.</p>
+</li>
+                                        <li><p>Si el valor no puede serializarse como JSON.</p>
+</li>
+                                        <li><p>Si LocalStorage no está disponible.</p>
+</li>
+                                        <li><p>Si el navegador rechaza la escritura.</p>
+</li>
+                                </ul>
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="withStorage"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>withStorage</b></span>
+                        <a href="#withStorage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>withStorage&lt;T&gt;(operation: "set" | "get" | "remove" | "keys" | "has", action: (storage: Storage) => void)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Definido en <a href="" data-line="120"
+                                    class="link-to-prism">projects/storage-manager/src/lib/local-storage.service.ts:120</a></div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <b>Parámetros de tipo :</b>
+                            <ul class="type-parameters">
+                                    <li>T</li>
+                            </ul>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parámetros :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Nombre</td>
+                                                <td>Tipo</td>
+                                            <td>Opcional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>operation</td>
+                                            <td>
+                                                        <code>&quot;set&quot; | &quot;get&quot; | &quot;remove&quot; | &quot;keys&quot; | &quot;has&quot;</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>action</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/function" target="_blank" >function</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Devuelve : </b>    <code>T</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Inject, Injectable } from &#x27;@angular/core&#x27;;
+import { StorageOperationError, StorageSerializationError, StorageUnavailableError } from &#x27;./local-storage.errors&#x27;;
+import { LOCAL_STORAGE } from &#x27;./local-storage.token&#x27;;
+
+/**
+ * Servicio para acceder a LocalStorage con tipos y serialización JSON.
+ * Los errores del navegador se exponen mediante clases específicas para distinguir
+ * fallos de serialización, disponibilidad y operaciones de almacenamiento.
+ */
+@Injectable({ providedIn: &#x27;root&#x27; })
+export class LocalStorageService {
+  /**
+   * Crea el servicio con la implementación de almacenamiento inyectada.
+   * @param storage Implementación de Storage; puede ser &#x60;null&#x60; si el navegador no la ofrece.
+   */
+  constructor(@Inject(LOCAL_STORAGE) private readonly storage: Storage | null) {}
+
+  /**
+   * Guarda un valor primitivo u objeto bajo la clave indicada.
+   * El valor se serializa como JSON antes de almacenarse.
+   * @param key Clave no vacía para el valor.
+   * @param value Valor compatible con la serialización JSON.
+   * @throws {TypeError} Si la clave está vacía o contiene solo espacios.
+   * @throws {StorageSerializationError} Si el valor no puede serializarse como JSON.
+   * @throws {StorageUnavailableError} Si LocalStorage no está disponible.
+   * @throws {StorageOperationError} Si el navegador rechaza la escritura.
+   */
+  setItem&lt;T&gt;(key: string, value: T): void {
+    this.assertKey(key);
+    if (value &#x3D;&#x3D;&#x3D; undefined) {
+      throw new StorageSerializationError(&#x27;serialize&#x27;);
+    }
+
+    let serialized: string | undefined;
+    try {
+      serialized &#x3D; JSON.stringify(value);
+    } catch (error) {
+      throw new StorageSerializationError(&#x27;serialize&#x27;, error);
+    }
+    if (serialized &#x3D;&#x3D;&#x3D; undefined) {
+      throw new StorageSerializationError(&#x27;serialize&#x27;);
+    }
+
+    this.withStorage(&#x27;set&#x27;, (storage) &#x3D;&gt; storage.setItem(key, serialized));
+  }
+
+  /**
+   * Consulta un valor y lo convierte desde JSON al tipo indicado.
+   * @param key Clave que se desea consultar.
+   * @returns El valor guardado o &#x60;null&#x60; si la clave no existe.
+   * @throws {TypeError} Si la clave está vacía o contiene solo espacios.
+   * @throws {StorageSerializationError} Si el contenido guardado no es JSON válido.
+   * @throws {StorageUnavailableError} Si LocalStorage no está disponible.
+   * @throws {StorageOperationError} Si el navegador rechaza la lectura.
+   */
+  getItem&lt;T&gt;(key: string): T | null {
+    this.assertKey(key);
+    const serialized &#x3D; this.withStorage(&#x27;get&#x27;, (storage) &#x3D;&gt; storage.getItem(key));
+    if (serialized &#x3D;&#x3D;&#x3D; null) {
+      return null;
+    }
+
+    try {
+      return JSON.parse(serialized) as T;
+    } catch (error) {
+      throw new StorageSerializationError(&#x27;deserialize&#x27;, error);
+    }
+  }
+
+  /**
+   * Elimina una clave; no produce error si no existía.
+   * @param key Clave que se desea eliminar.
+   * @throws {TypeError} Si la clave está vacía o contiene solo espacios.
+   * @throws {StorageUnavailableError} Si LocalStorage no está disponible.
+   * @throws {StorageOperationError} Si el navegador rechaza la eliminación.
+   */
+  removeItem(key: string): void {
+    this.assertKey(key);
+    this.withStorage(&#x27;remove&#x27;, (storage) &#x3D;&gt; storage.removeItem(key));
+  }
+
+  /**
+   * Comprueba si existe una clave, incluso si su valor guardado es JSON &#x60;null&#x60;.
+   * @param key Clave que se desea comprobar.
+   * @returns &#x60;true&#x60; si existe; en caso contrario, &#x60;false&#x60;.
+   * @throws {TypeError} Si la clave está vacía o contiene solo espacios.
+   * @throws {StorageUnavailableError} Si LocalStorage no está disponible.
+   * @throws {StorageOperationError} Si el navegador rechaza la consulta.
+   */
+  hasItem(key: string): boolean {
+    this.assertKey(key);
+    return this.withStorage(&#x27;has&#x27;, (storage) &#x3D;&gt; storage.getItem(key) !&#x3D;&#x3D; null);
+  }
+
+  /**
+   * Obtiene todas las claves actualmente guardadas en LocalStorage.
+   * @returns Lista de claves en el orden expuesto por el navegador.
+   * @throws {StorageUnavailableError} Si LocalStorage no está disponible.
+   * @throws {StorageOperationError} Si el navegador rechaza la consulta.
+   */
+  keys(): string[] {
+    return this.withStorage(&#x27;keys&#x27;, (storage) &#x3D;&gt; {
+      const result: string[] &#x3D; [];
+      for (let index &#x3D; 0; index &lt; storage.length; index +&#x3D; 1) {
+        const key &#x3D; storage.key(index);
+        if (key !&#x3D;&#x3D; null) {
+          result.push(key);
+        }
+      }
+      return result;
+    });
+  }
+
+  private assertKey(key: string): void {
+    if (typeof key !&#x3D;&#x3D; &#x27;string&#x27; || key.trim().length &#x3D;&#x3D;&#x3D; 0) {
+      throw new TypeError(&#x27;La clave de LocalStorage debe contener al menos un carácter no vacío.&#x27;);
+    }
+  }
+
+  private withStorage&lt;T&gt;(
+    operation: &#x27;set&#x27; | &#x27;get&#x27; | &#x27;remove&#x27; | &#x27;keys&#x27; | &#x27;has&#x27;,
+    action: (storage: Storage) &#x3D;&gt; T,
+  ): T {
+    if (this.storage &#x3D;&#x3D;&#x3D; null) {
+      throw new StorageUnavailableError();
+    }
+    try {
+      return action(this.storage);
+    } catch (error) {
+      throw new StorageOperationError(operation, error);
+    }
+  }
+}
+</code></pre>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> comparación de resultados "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No hay resultados que coincidan "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
+            var COMPODOC_CURRENT_PAGE_URL = 'LocalStorageService.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var updateDarkModeSwitchOffset = function () {
+                    var content = document.querySelector('.content');
+                    var scrollbarWidth = 0;
+
+                    if (content) {
+                         scrollbarWidth = Math.max(0, content.offsetWidth - content.clientWidth);
+                    }
+
+                    document.documentElement.style.setProperty(
+                         '--content-scrollbar-width',
+                         scrollbarWidth + 'px'
+                    );
+               };
+
+               updateDarkModeSwitchOffset();
+               requestAnimationFrame(updateDarkModeSwitchOffset);
+               window.addEventListener('resize', updateDarkModeSwitchOffset);
+
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

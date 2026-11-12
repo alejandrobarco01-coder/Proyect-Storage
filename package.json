@@ -4,8 +4,10 @@
   "scripts": {
     "ng": "ng",
     "build": "ng build storage-manager --configuration production",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test storage-manager --watch=false --browsers=ChromeHeadless"
+    "watch": "ng build storage-manager --watch --configuration development",
+    "test": "ng test storage-manager --watch=false --browsers=ChromeHeadless",
+    "docs": "compodoc -p tsconfig.doc.json -d documentation --name \"Storage Manager\" --language es-ES",
+    "docs:serve": "compodoc -s -d documentation -r 8080"
   },
   "prettier": {
     "printWidth": 100,
@@ -34,6 +36,7 @@
     "@angular/build": "^20.3.9",
     "@angular/cli": "^20.3.9",
     "@angular/compiler-cli": "^20.3.0",
+    "@compodoc/compodoc": "^2.0.0",
     "@types/jasmine": "~5.1.0",
     "jasmine-core": "~5.9.0",
     "karma": "~6.4.0",

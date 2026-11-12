@@ -2,12 +2,29 @@ import { Inject, Injectable } from '@angular/core';
 import { StorageOperationError, StorageSerializationError, StorageUnavailableError } from './local-storage.errors';
 import { LOCAL_STORAGE } from './local-storage.token';
 
-/** Typed LocalStorage access with JSON serialization and explicit error handling. */
+/**
+ * Servicio para acceder a LocalStorage con tipos y serialización JSON.
+ * Los errores del navegador se exponen mediante clases específicas para distinguir
+ * fallos de serialización, disponibilidad y operaciones de almacenamiento.
+ */
 @Injectable({ providedIn: 'root' })
 export class LocalStorageService {
+  /**
+   * Crea el servicio con la implementación de almacenamiento inyectada.
+   * @param storage Implementación de Storage; puede ser `null` si el navegador no la ofrece.
+   */
   constructor(@Inject(LOCAL_STORAGE) private readonly storage: Storage | null) {}
 
-  /** Store a primitive or object under `key`. `undefined` cannot be represented in JSON. */
+  /**
+   * Guarda un valor primitivo u objeto bajo la clave indicada.
+   * El valor se serializa como JSON antes de almacenarse.
+   * @param key Clave no vacía para el valor.
+   * @param value Valor compatible con la serialización JSON.
+   * @throws {TypeError} Si la clave está vacía o contiene solo espacios.
+   * @throws {StorageSerializationError} Si el valor no puede serializarse como JSON.
+   * @throws {StorageUnavailableError} Si LocalStorage no está disponible.
+   * @throws {StorageOperationError} Si el navegador rechaza la escritura.
+   */
   setItem<T>(key: string, value: T): void {
     this.assertKey(key);
     if (value === undefined) {
@@ -27,7 +44,15 @@ export class LocalStorageService {
     this.withStorage('set', (storage) => storage.setItem(key, serialized));
   }
 
-  /** Return the decoded value, or `null` when the key is not present. */
+  /**
+   * Consulta un valor y lo convierte desde JSON al tipo indicado.
+   * @param key Clave que se desea consultar.
+   * @returns El valor guardado o `null` si la clave no existe.
+   * @throws {TypeError} Si la clave está vacía o contiene solo espacios.
+   * @throws {StorageSerializationError} Si el contenido guardado no es JSON válido.
+   * @throws {StorageUnavailableError} Si LocalStorage no está disponible.
+   * @throws {StorageOperationError} Si el navegador rechaza la lectura.
+   */
   getItem<T>(key: string): T | null {
     this.assertKey(key);
     const serialized = this.withStorage('get', (storage) => storage.getItem(key));
@@ -42,19 +67,37 @@ export class LocalStorageService {
     }
   }
 
-  /** Remove a key if it exists. */
+  /**
+   * Elimina una clave; no produce error si no existía.
+   * @param key Clave que se desea eliminar.
+   * @throws {TypeError} Si la clave está vacía o contiene solo espacios.
+   * @throws {StorageUnavailableError} Si LocalStorage no está disponible.
+   * @throws {StorageOperationError} Si el navegador rechaza la eliminación.
+   */
   removeItem(key: string): void {
     this.assertKey(key);
     this.withStorage('remove', (storage) => storage.removeItem(key));
   }
 
-  /** Check whether a key exists, including keys whose stored value is JSON `null`. */
+  /**
+   * Comprueba si existe una clave, incluso si su valor guardado es JSON `null`.
+   * @param key Clave que se desea comprobar.
+   * @returns `true` si existe; en caso contrario, `false`.
+   * @throws {TypeError} Si la clave está vacía o contiene solo espacios.
+   * @throws {StorageUnavailableError} Si LocalStorage no está disponible.
+   * @throws {StorageOperationError} Si el navegador rechaza la consulta.
+   */
   hasItem(key: string): boolean {
     this.assertKey(key);
     return this.withStorage('has', (storage) => storage.getItem(key) !== null);
   }
 
-  /** Return all keys currently stored in LocalStorage. */
+  /**
+   * Obtiene todas las claves actualmente guardadas en LocalStorage.
+   * @returns Lista de claves en el orden expuesto por el navegador.
+   * @throws {StorageUnavailableError} Si LocalStorage no está disponible.
+   * @throws {StorageOperationError} Si el navegador rechaza la consulta.
+   */
   keys(): string[] {
     return this.withStorage('keys', (storage) => {
       const result: string[] = [];
@@ -70,7 +113,7 @@ export class LocalStorageService {
 
   private assertKey(key: string): void {
     if (typeof key !== 'string' || key.trim().length === 0) {
-      throw new TypeError('A non-empty LocalStorage key is required.');
+      throw new TypeError('La clave de LocalStorage debe contener al menos un carácter no vacío.');
     }
   }
 

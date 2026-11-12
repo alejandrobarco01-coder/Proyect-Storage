@@ -1,8 +1,7 @@
 {
   "name": "@alejandrobarco01-coder/storage-manager",
   "version": "0.0.1",
-  "description": "Typed Angular services for LocalStorage and Cache Storage.",
-  "license": "MIT",
+  "description": "Servicios Angular tipados para LocalStorage y Cache Storage.",
   "repository": {
     "type": "git",
     "url": "https://github.com/alejandrobarco01-coder/Proyect-Storage.git"
