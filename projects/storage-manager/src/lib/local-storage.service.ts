@@ -111,12 +111,23 @@ export class LocalStorageService {
     });
   }
 
+  /** Valida que una clave tenga contenido antes de llamar a la API del navegador.
+   * @param key Clave que se va a validar.
+   * @throws {TypeError} Si la clave está vacía o contiene solo espacios.
+   */
   private assertKey(key: string): void {
     if (typeof key !== 'string' || key.trim().length === 0) {
       throw new TypeError('La clave de LocalStorage debe contener al menos un carácter no vacío.');
     }
   }
 
+  /** Ejecuta una operación y convierte los errores nativos en errores tipados de la librería.
+   * @param operation Nombre de la operación para incluirlo en el error tipado.
+   * @param action Función que realiza la llamada a Storage.
+   * @returns El resultado de la operación.
+   * @throws {StorageUnavailableError} Si no se inyectó una implementación de Storage.
+   * @throws {StorageOperationError} Si la operación del navegador falla.
+   */
   private withStorage<T>(
     operation: 'set' | 'get' | 'remove' | 'keys' | 'has',
     action: (storage: Storage) => T,

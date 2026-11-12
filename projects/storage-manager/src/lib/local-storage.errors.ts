@@ -1,5 +1,6 @@
 /** Error lanzado cuando LocalStorage no está disponible en el entorno actual. */
 export class StorageUnavailableError extends Error {
+  /** Crea un error para indicar que el entorno no permite usar LocalStorage. */
   constructor() {
     super('LocalStorage no está disponible en este entorno.');
     this.name = 'StorageUnavailableError';
@@ -9,6 +10,7 @@ export class StorageUnavailableError extends Error {
 /** Error lanzado cuando un valor no se puede codificar o decodificar como JSON. */
 export class StorageSerializationError extends Error {
   /**
+   * Crea un error para indicar que un valor no se pudo convertir desde o hacia JSON.
    * @param operation Indica si falló la serialización o la deserialización.
    * @param cause Error original producido por JSON, si existe.
    */
@@ -22,6 +24,7 @@ export class StorageSerializationError extends Error {
 /** Error lanzado cuando falla una operación del navegador, por ejemplo por falta de cuota. */
 export class StorageOperationError extends Error {
   /**
+   * Crea un error para indicar que el navegador rechazó una operación de almacenamiento.
    * @param operation Operación de almacenamiento que falló.
    * @param cause Error original del navegador, si existe.
    */
