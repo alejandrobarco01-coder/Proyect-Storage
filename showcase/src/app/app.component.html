@@ -1,0 +1,39 @@
+<main>
+  <header>
+    <p class="eyebrow">@alejandrobarco01-coder/storage-manager</p>
+    <h1>Storage Manager Showcase</h1>
+    <p>Una aplicación Angular independiente que usa solo la API pública del paquete.</p>
+  </header>
+
+  <section>
+    <h2>LocalStorage</h2>
+    <label>Clave <input [(ngModel)]="localKey" /></label>
+    <label>Valor JSON <textarea [(ngModel)]="localValue" rows="3"></textarea></label>
+    <div class="actions">
+      <button (click)="saveLocal()">Guardar</button><button (click)="readLocal()">Consultar</button>
+      <button (click)="removeLocal()">Eliminar</button
+      ><button (click)="listLocal()">Listar claves</button>
+    </div>
+    <output>{{ localResult() }}</output>
+  </section>
+
+  <section>
+    <h2>Cache Storage</h2>
+    <label>Nombre de caché <input [(ngModel)]="cacheName" /></label>
+    <label>URL del recurso <input [(ngModel)]="resourceUrl" /></label>
+    <label>Respuesta JSON <textarea [(ngModel)]="responseBody" rows="3"></textarea></label>
+    <div class="actions">
+      <button (click)="openCache()">Abrir caché</button
+      ><button (click)="saveResponse()">Guardar respuesta</button>
+      <button (click)="addResource()">Descargar recurso</button
+      ><button (click)="findResponse()">Consultar</button>
+      <button (click)="removeResource()">Eliminar recurso</button
+      ><button (click)="removeCache()">Eliminar caché</button>
+      <button (click)="refreshCaches()">Listar cachés</button>
+    </div>
+    <output>{{ cacheResult() }}</output>
+    @if (cacheNames().length) {
+      <p>Cachés disponibles: {{ cacheNames().join(', ') }}</p>
+    }
+  </section>
+</main>

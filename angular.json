@@ -29,6 +29,7 @@
           "options": {
             "tsConfig": "projects/storage-manager/tsconfig.spec.json",
             "codeCoverage": true,
+            "polyfills": ["zone.js", "zone.js/testing"],
             "karmaConfig": "projects/storage-manager/karma.conf.js"
           }
         }

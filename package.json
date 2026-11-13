@@ -6,7 +6,11 @@
     "build": "ng build storage-manager --configuration production",
     "watch": "ng build storage-manager --watch --configuration development",
     "test": "ng test storage-manager --watch=false --browsers=ChromeHeadless",
-    "docs": "compodoc -p tsconfig.doc.json -d documentation --name \"Storage Manager\" --language es-ES --coverageTest 100 --coverageMinimumPerFile 100 --coverageTestThresholdFail true",
+    "package": "npm run build && npm pack --prefix dist/storage-manager --pack-destination artifacts",
+    "verify:package": "npm run build && node scripts/verify-package.mjs",
+    "showcase:install": "npm run build && npm install --prefix showcase",
+    "showcase": "npm run build && npm run start --prefix showcase",
+    "docs": "compodoc -p tsconfig.doc.json -d documentation --name \"Storage Manager\" --language es-ES --coverageTest 100 --coverageMinimumPerFile 100 --coverageTestThresholdFail true && compodoc -p tsconfig.doc.json -d documentation --name \"Storage Manager\" --language es-ES",
     "docs:serve": "compodoc -s -d documentation -r 8080"
   },
   "prettier": {
@@ -45,7 +49,8 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "ng-packagr": "^20.3.0",
-    "typescript": "~5.9.2"
+    "typescript": "~5.9.2",
+    "zone.js": "^0.15.1"
   },
   "overrides": {
     "@compodoc/compodoc": {

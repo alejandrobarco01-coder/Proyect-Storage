@@ -115,6 +115,7 @@ describe('LocalStorageService', () => {
   });
 
   it('wraps browser storage failures with the operation name and original cause', () => {
+    storage.setItem('existing', '1');
     spyOn(storage, 'setItem').and.throwError('quota exceeded');
     spyOn(storage, 'getItem').and.throwError('quota exceeded');
     spyOn(storage, 'removeItem').and.throwError('quota exceeded');
