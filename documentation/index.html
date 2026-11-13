@@ -98,31 +98,27 @@
 
 
 <h1>Proyect Storage</h1>
-<p>Librería reutilizable para administrar almacenamiento en aplicaciones Angular mediante LocalStorage y Cache Storage. El repositorio también incluirá una aplicación Showcase independiente.</p>
+<p>Librería Angular para gestionar LocalStorage y Cache Storage, con una aplicación Showcase independiente.</p>
 <h2>Estructura</h2>
 <ul>
-<li><code>projects/storage-manager</code>: código fuente de la librería Angular.</li>
-<li>LocalStorage, API pública y pruebas unitarias: primera parte del trabajo.</li>
-<li>Cache Storage, pruebas correspondientes y aplicación Showcase: parte asignada al otro integrante.</li>
+<li><code>projects/storage-manager</code>: fuente de <code>@alejandrobarco01-coder/storage-manager</code>.</li>
+<li><code>showcase</code>: aplicación Angular que usa exclusivamente la API pública del paquete.</li>
+<li><code>documentation</code>: referencia generada con Compodoc.</li>
 </ul>
-<h2>Requisitos</h2>
-<ul>
-<li>Node.js</li>
-<li>npm</li>
-</ul>
-<h2>Instalación y desarrollo</h2>
-<p>Desde la carpeta raíz del repositorio:</p>
+<h2>Preparación y calidad</h2>
+<p>Se requiere Node.js 20.19+ y npm.</p>
 <b>Ejemplo :</b><div><pre class="line-numbers"><code class="language-bash">npm install
 npm test
-npm run build</code></pre></div><p>Las pruebas comprueban el servicio de LocalStorage y exigen 100 % de cobertura en sentencias, ramas, funciones y líneas. El navegador Chrome debe estar instalado para ejecutar Karma.</p>
-<p>La compilación de producción se genera en <code>dist/storage-manager</code>.</p>
-<h2>Documentación técnica</h2>
-<p>Genera la documentación de la librería con Compodoc:</p>
-<b>Ejemplo :</b><div><pre class="line-numbers"><code class="language-bash">npm run docs</code></pre></div><p>Los archivos estáticos quedan en <code>documentation/</code>. Para servirlos localmente:</p>
-<b>Ejemplo :</b><div><pre class="line-numbers"><code class="language-bash">npm run docs:serve</code></pre></div><h2>LocalStorage</h2>
-<p>La API expone <code>LocalStorageService</code>, <code>LOCAL_STORAGE</code> y los errores específicos. El servicio guarda y recupera valores JSON tipados, elimina claves, comprueba su existencia y lista las claves almacenadas. Consulta el <a href="projects/storage-manager/README.md">README de la librería</a> para ver ejemplos.</p>
-<h2>Publicación</h2>
-<p>La librería se compila en formato Angular distribuible. Su publicación en NPM y la aplicación Showcase forman parte de la integración final del equipo.</p>
+npm run build
+npm run docs</code></pre></div><p>Las pruebas exigen 100 % en statements, branches, functions y lines. Si Karma no encuentra Google Chrome, instale Chrome/Chromium o indique un binario compatible. En macOS:</p>
+<b>Ejemplo :</b><div><pre class="line-numbers"><code class="language-bash">CHROME_BIN=&quot;/Applications/Brave Browser.app/Contents/MacOS/Brave Browser&quot; npm test</code></pre></div><p>La compilación se genera en <code>dist/storage-manager</code>; <code>npm run docs:serve</code> sirve la documentación estática de <code>documentation/</code>.</p>
+<h2>Showcase</h2>
+<p>Como la primera publicación NPM sigue pendiente, el Showcase consume durante desarrollo el paquete compilado local (<code>file:../dist/storage-manager</code>), sin rutas internas ni código fuente de la librería.</p>
+<b>Ejemplo :</b><div><pre class="line-numbers"><code class="language-bash">npm run showcase:install
+npm run showcase</code></pre></div><p>Permite ejecutar guardado, consulta, listado y eliminación de LocalStorage; y apertura/listado/eliminación de cachés, descarga de recursos, guardado, consulta y eliminación de respuestas HTTP. Después de publicar, cambie su dependencia en <code>showcase/package.json</code> por <code>&quot;@alejandrobarco01-coder/storage-manager&quot;: &quot;^0.0.1&quot;</code> y ejecute <code>npm install</code> en esa carpeta.</p>
+<h2>Paquete y publicación</h2>
+<b>Ejemplo :</b><div><pre class="line-numbers"><code class="language-bash">npm run package
+npm run verify:package</code></pre></div><p><code>package</code> deja el tarball en <code>artifacts/</code>. <code>verify:package</code> lo instala e importa en un proyecto temporal independiente. Ninguno publica en NPM. La publicación debe coordinarse con el propietario de la cuenta. Consulte el <a href="projects/storage-manager/README.md">README de la librería</a> para instalación, API y ejemplos.</p>
 
 
 

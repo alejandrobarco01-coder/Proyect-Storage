@@ -57,6 +57,12 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                         </div>
                         <ul class="links collapse " ${ isNormalMode ? 'id="classes-links"' : 'id="xs-classes-links"' }>
                             <li class="link">
+                                <a href="classes/CacheStorageOperationError.html" data-type="entity-link" >CacheStorageOperationError</a>
+                            </li>
+                            <li class="link">
+                                <a href="classes/CacheStorageUnavailableError.html" data-type="entity-link" >CacheStorageUnavailableError</a>
+                            </li>
+                            <li class="link">
                                 <a href="classes/StorageOperationError.html" data-type="entity-link" >StorageOperationError</a>
                             </li>
                             <li class="link">
@@ -76,6 +82,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                             </div>
                             <ul class="links collapse " ${ isNormalMode ? 'id="injectables-links"' : 'id="xs-injectables-links"' }>
                                 <li class="link">
+                                    <a href="injectables/CacheStorageService.html" data-type="entity-link" >CacheStorageService</a>
+                                </li>
+                                <li class="link">
                                     <a href="injectables/LocalStorageService.html" data-type="entity-link" >LocalStorageService</a>
                                 </li>
                             </ul>
@@ -90,6 +99,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                         <ul class="links collapse " ${ isNormalMode ? 'id="miscellaneous-links"' : 'id="xs-miscellaneous-links"' }>
                             <li class="link">
                                 <a href="miscellaneous/functions.html" data-type="entity-link">Funciones</a>
+                            </li>
+                            <li class="link">
+                                <a href="miscellaneous/typealiases.html" data-type="entity-link">Alias de tipo</a>
                             </li>
                             <li class="link">
                                 <a href="miscellaneous/variables.html" data-type="entity-link">Variables</a>

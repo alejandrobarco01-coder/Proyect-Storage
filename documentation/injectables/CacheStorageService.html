@@ -1,0 +1,1462 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Storage Manager</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">Storage Manager</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Escribe para buscar"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content injectable">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Inyectables</li>
+  <li class="breadcrumb-item" >CacheStorageService</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info"
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source"
+                class="nav-link"
+
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>Fichero</h3>
+        </p>
+        <p class="comment">
+            <code>projects/storage-manager/src/lib/cache-storage.service.ts</code>
+        </p>
+
+
+            <p class="comment">
+                <h3>Descripción</h3>
+            </p>
+            <p class="comment">
+                <p>Servicio tipado para administrar recursos HTTP mediante la API Cache Storage del navegador.
+Cada operación abre la caché indicada por nombre, por lo que el consumidor no debe conservar
+referencias nativas a <code>Cache</code> entre llamadas.</p>
+
+            </p>
+
+
+
+            <section data-compodoc="block-index">
+    <h3 id="index">Índice</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Métodos</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#add" >add</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#assertCacheName" >assertCacheName</a>
+                            </li>
+                            <li>
+                                <a href="#deleteCache" >deleteCache</a>
+                            </li>
+                            <li>
+                                <a href="#deleteEntry" >deleteEntry</a>
+                            </li>
+                            <li>
+                                <a href="#has" >has</a>
+                            </li>
+                            <li>
+                                <a href="#keys" >keys</a>
+                            </li>
+                            <li>
+                                <a href="#match" >match</a>
+                            </li>
+                            <li>
+                                <a href="#open" >open</a>
+                            </li>
+                            <li>
+                                <a href="#put" >put</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#withCache" >withCache</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#withCacheStorage" >withCacheStorage</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+            <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(cacheStorage: CacheStorage | null)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Definido en <a href="" data-line="15" class="link-to-prism">projects/storage-manager/src/lib/cache-storage.service.ts:15</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Crea el servicio con la implementación de Cache Storage inyectada.</p>
+</div>
+                            <div>
+                                    <b>Parámetros :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Nombre</td>
+                                                    <td>Tipo</td>
+                                                <td>Opcional</td>
+                                                    <td>Descripción</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>cacheStorage</td>
+
+                                                        <td>
+                                                                    <code>CacheStorage | null</code>
+                                                        </td>
+
+                                                    <td>
+                                                            No
+                                                    </td>
+
+                                                        <td>
+                                                                <p>Implementación de CacheStorage; puede ser <code>null</code> fuera del navegador.</p>
+
+                                                        </td>
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+            <section data-compodoc="block-methods">
+
+    <h3 id="methods">
+        Métodos
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="add"></a>
+                    <span class="name">
+                        <span ><b>add</b></span>
+                        <a href="#add"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>add(cacheName: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, request: RequestInfo | URL)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Definido en <a href="" data-line="70"
+                                    class="link-to-prism">projects/storage-manager/src/lib/cache-storage.service.ts:70</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Descarga y guarda un recurso HTTP en la caché indicada.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parámetros :</b>
+
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Nombre</td>
+                                                <td>Tipo</td>
+                                            <td>Opcional</td>
+                                                <td>Descripción</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>cacheName</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Nombre no vacío de la caché.</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>request</td>
+                                            <td>
+                                                        <code>RequestInfo | URL</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>URL o solicitud del recurso que se debe descargar y almacenar.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Devuelve : </b>    <code>Promise&lt;void&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="assertCacheName"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>assertCacheName</b></span>
+                        <a href="#assertCacheName"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>assertCacheName(cacheName: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Definido en <a href="" data-line="119"
+                                    class="link-to-prism">projects/storage-manager/src/lib/cache-storage.service.ts:119</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Valida que una caché tenga un nombre útil antes de acceder a la API del navegador.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parámetros :</b>
+
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Nombre</td>
+                                                <td>Tipo</td>
+                                            <td>Opcional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>cacheName</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Devuelve : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="deleteCache"></a>
+                    <span class="name">
+                        <span ><b>deleteCache</b></span>
+                        <a href="#deleteCache"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>deleteCache(cacheName: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Definido en <a href="" data-line="60"
+                                    class="link-to-prism">projects/storage-manager/src/lib/cache-storage.service.ts:60</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Elimina una caché completa y todos sus recursos.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parámetros :</b>
+
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Nombre</td>
+                                                <td>Tipo</td>
+                                            <td>Opcional</td>
+                                                <td>Descripción</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>cacheName</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Nombre no vacío de la caché.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Devuelve : </b>    <code>Promise&lt;boolean&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p><code>true</code> si la caché existía y se eliminó; de lo contrario, <code>false</code>.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="deleteEntry"></a>
+                    <span class="name">
+                        <span ><b>deleteEntry</b></span>
+                        <a href="#deleteEntry"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>deleteEntry(cacheName: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, request: RequestInfo | URL, options?: CacheQueryOptions)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Definido en <a href="" data-line="109"
+                                    class="link-to-prism">projects/storage-manager/src/lib/cache-storage.service.ts:109</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Elimina un recurso de una caché, sin eliminar la caché completa.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parámetros :</b>
+
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Nombre</td>
+                                                <td>Tipo</td>
+                                            <td>Opcional</td>
+                                                <td>Descripción</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>cacheName</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Nombre no vacío de la caché.</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>request</td>
+                                            <td>
+                                                        <code>RequestInfo | URL</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>URL o solicitud del recurso que se desea eliminar.</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>options</td>
+                                            <td>
+                                                        <code>CacheQueryOptions</code>
+                                            </td>
+
+                                            <td>
+                                                    Si
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Opciones de coincidencia admitidas por el navegador.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Devuelve : </b>    <code>Promise&lt;boolean&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p><code>true</code> si se eliminó un recurso; de lo contrario, <code>false</code>.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="has"></a>
+                    <span class="name">
+                        <span ><b>has</b></span>
+                        <a href="#has"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>has(cacheName: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Definido en <a href="" data-line="50"
+                                    class="link-to-prism">projects/storage-manager/src/lib/cache-storage.service.ts:50</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Comprueba si existe una caché con el nombre indicado.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parámetros :</b>
+
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Nombre</td>
+                                                <td>Tipo</td>
+                                            <td>Opcional</td>
+                                                <td>Descripción</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>cacheName</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Nombre no vacío de la caché.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Devuelve : </b>    <code>Promise&lt;boolean&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p><code>true</code> si la caché existe; de lo contrario, <code>false</code>.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="keys"></a>
+                    <span class="name">
+                        <span ><b>keys</b></span>
+                        <a href="#keys"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>keys()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Definido en <a href="" data-line="41"
+                                    class="link-to-prism">projects/storage-manager/src/lib/cache-storage.service.ts:41</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Devuelve los nombres de todas las cachés del origen actual.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Devuelve : </b>    <code>Promise&lt;string[]&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Nombres de las cachés disponibles.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="match"></a>
+                    <span class="name">
+                        <span ><b>match</b></span>
+                        <a href="#match"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>match(cacheName: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, request: RequestInfo | URL, options?: CacheQueryOptions)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Definido en <a href="" data-line="93"
+                                    class="link-to-prism">projects/storage-manager/src/lib/cache-storage.service.ts:93</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Busca una respuesta almacenada en una caché.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parámetros :</b>
+
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Nombre</td>
+                                                <td>Tipo</td>
+                                            <td>Opcional</td>
+                                                <td>Descripción</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>cacheName</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Nombre no vacío de la caché.</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>request</td>
+                                            <td>
+                                                        <code>RequestInfo | URL</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>URL o solicitud que se desea consultar.</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>options</td>
+                                            <td>
+                                                        <code>CacheQueryOptions</code>
+                                            </td>
+
+                                            <td>
+                                                    Si
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Opciones de coincidencia admitidas por el navegador.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Devuelve : </b>    <code>Promise&lt;Response | undefined&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>La respuesta encontrada o <code>undefined</code> si no existe.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="open"></a>
+                    <span class="name">
+                        <span ><b>open</b></span>
+                        <a href="#open"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>open(cacheName: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Definido en <a href="" data-line="30"
+                                    class="link-to-prism">projects/storage-manager/src/lib/cache-storage.service.ts:30</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Abre una caché existente o la crea si aún no existe.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parámetros :</b>
+
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Nombre</td>
+                                                <td>Tipo</td>
+                                            <td>Opcional</td>
+                                                <td>Descripción</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>cacheName</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Nombre no vacío de la caché.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Devuelve : </b>    <code>Promise&lt;Cache&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>La caché nativa abierta.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="put"></a>
+                    <span class="name">
+                        <span ><b>put</b></span>
+                        <a href="#put"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>put(cacheName: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, request: RequestInfo | URL, response: Response)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Definido en <a href="" data-line="81"
+                                    class="link-to-prism">projects/storage-manager/src/lib/cache-storage.service.ts:81</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Guarda una respuesta HTTP ya disponible bajo una solicitud o URL.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parámetros :</b>
+
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Nombre</td>
+                                                <td>Tipo</td>
+                                            <td>Opcional</td>
+                                                <td>Descripción</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>cacheName</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Nombre no vacío de la caché.</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>request</td>
+                                            <td>
+                                                        <code>RequestInfo | URL</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>URL o solicitud asociada a la respuesta.</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>response</td>
+                                            <td>
+                                                        <code>Response</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Respuesta HTTP que se guardará.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Devuelve : </b>    <code>Promise&lt;void&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="withCache"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>withCache</b></span>
+                        <a href="#withCache"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>withCache(cacheName: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, operation: <a href="../miscellaneous/typealiases.html#CacheOperation" target="_self">Exclude&lt;CacheOperation | &quot;open&quot; | &quot;keys&quot; | &quot;has&quot; | &quot;deleteCache&quot;&gt;</a>, action: (cache: Cache) => void)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Definido en <a href="" data-line="126"
+                                    class="link-to-prism">projects/storage-manager/src/lib/cache-storage.service.ts:126</a></div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <b>Parámetros de tipo :</b>
+                            <ul class="type-parameters">
+                                    <li>T</li>
+                            </ul>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Abre una caché y ejecuta una operación sobre ella, convirtiendo errores nativos en errores tipados.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parámetros :</b>
+
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Nombre</td>
+                                                <td>Tipo</td>
+                                            <td>Opcional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>cacheName</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>operation</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/typealiases.html#CacheOperation" target="_self" >Exclude&lt;CacheOperation | &quot;open&quot; | &quot;keys&quot; | &quot;has&quot; | &quot;deleteCache&quot;&gt;</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>action</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/function" target="_blank" >function</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Devuelve : </b>    <code>Promise&lt;T&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="withCacheStorage"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Async</span>
+                        <span ><b>withCacheStorage</b></span>
+                        <a href="#withCacheStorage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>withCacheStorage(operation: <a href="../miscellaneous/typealiases.html#CacheOperation" target="_self">CacheOperation</a>, action: (storage: CacheStorage) => void)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Definido en <a href="" data-line="137"
+                                    class="link-to-prism">projects/storage-manager/src/lib/cache-storage.service.ts:137</a></div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <b>Parámetros de tipo :</b>
+                            <ul class="type-parameters">
+                                    <li>T</li>
+                            </ul>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Ejecuta una operación y convierte los errores nativos en errores tipados de la librería.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parámetros :</b>
+
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Nombre</td>
+                                                <td>Tipo</td>
+                                            <td>Opcional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>operation</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/typealiases.html#CacheOperation" target="_self" >CacheOperation</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>action</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/function" target="_blank" >function</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Devuelve : </b>    <code>Promise&lt;T&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Inject, Injectable } from &#x27;@angular/core&#x27;;
+import { CacheStorageOperationError, CacheStorageUnavailableError } from &#x27;./cache-storage.errors&#x27;;
+import { CACHE_STORAGE } from &#x27;./cache-storage.token&#x27;;
+
+/** Operaciones internas que se convierten en errores tipados de Cache Storage. */
+type CacheOperation &#x3D;
+  &#x27;open&#x27; | &#x27;keys&#x27; | &#x27;has&#x27; | &#x27;deleteCache&#x27; | &#x27;add&#x27; | &#x27;put&#x27; | &#x27;match&#x27; | &#x27;deleteEntry&#x27;;
+
+/**
+ * Servicio tipado para administrar recursos HTTP mediante la API Cache Storage del navegador.
+ * Cada operación abre la caché indicada por nombre, por lo que el consumidor no debe conservar
+ * referencias nativas a &#x60;Cache&#x60; entre llamadas.
+ */
+@Injectable({ providedIn: &#x27;root&#x27; })
+export class CacheStorageService {
+  /**
+   * Crea el servicio con la implementación de Cache Storage inyectada.
+   * @param cacheStorage Implementación de CacheStorage; puede ser &#x60;null&#x60; fuera del navegador.
+   */
+  constructor(@Inject(CACHE_STORAGE) private readonly cacheStorage: CacheStorage | null) {}
+
+  /**
+   * Abre una caché existente o la crea si aún no existe.
+   * @param cacheName Nombre no vacío de la caché.
+   * @returns La caché nativa abierta.
+   * @throws {TypeError} Si el nombre está vacío o contiene solo espacios.
+   * @throws {CacheStorageUnavailableError} Si Cache Storage no está disponible.
+   * @throws {CacheStorageOperationError} Si el navegador rechaza la operación.
+   */
+  open(cacheName: string): Promise&lt;Cache&gt; {
+    this.assertCacheName(cacheName);
+    return this.withCacheStorage(&#x27;open&#x27;, (storage) &#x3D;&gt; storage.open(cacheName));
+  }
+
+  /**
+   * Devuelve los nombres de todas las cachés del origen actual.
+   * @returns Nombres de las cachés disponibles.
+   * @throws {CacheStorageUnavailableError} Si Cache Storage no está disponible.
+   * @throws {CacheStorageOperationError} Si el navegador rechaza la operación.
+   */
+  keys(): Promise&lt;string[]&gt; {
+    return this.withCacheStorage(&#x27;keys&#x27;, (storage) &#x3D;&gt; storage.keys());
+  }
+
+  /**
+   * Comprueba si existe una caché con el nombre indicado.
+   * @param cacheName Nombre no vacío de la caché.
+   * @returns &#x60;true&#x60; si la caché existe; de lo contrario, &#x60;false&#x60;.
+   */
+  has(cacheName: string): Promise&lt;boolean&gt; {
+    this.assertCacheName(cacheName);
+    return this.withCacheStorage(&#x27;has&#x27;, (storage) &#x3D;&gt; storage.has(cacheName));
+  }
+
+  /**
+   * Elimina una caché completa y todos sus recursos.
+   * @param cacheName Nombre no vacío de la caché.
+   * @returns &#x60;true&#x60; si la caché existía y se eliminó; de lo contrario, &#x60;false&#x60;.
+   */
+  deleteCache(cacheName: string): Promise&lt;boolean&gt; {
+    this.assertCacheName(cacheName);
+    return this.withCacheStorage(&#x27;deleteCache&#x27;, (storage) &#x3D;&gt; storage.delete(cacheName));
+  }
+
+  /**
+   * Descarga y guarda un recurso HTTP en la caché indicada.
+   * @param cacheName Nombre no vacío de la caché.
+   * @param request URL o solicitud del recurso que se debe descargar y almacenar.
+   */
+  add(cacheName: string, request: RequestInfo | URL): Promise&lt;void&gt; {
+    this.assertCacheName(cacheName);
+    return this.withCache(cacheName, &#x27;add&#x27;, (cache) &#x3D;&gt; cache.add(request));
+  }
+
+  /**
+   * Guarda una respuesta HTTP ya disponible bajo una solicitud o URL.
+   * @param cacheName Nombre no vacío de la caché.
+   * @param request URL o solicitud asociada a la respuesta.
+   * @param response Respuesta HTTP que se guardará.
+   */
+  put(cacheName: string, request: RequestInfo | URL, response: Response): Promise&lt;void&gt; {
+    this.assertCacheName(cacheName);
+    return this.withCache(cacheName, &#x27;put&#x27;, (cache) &#x3D;&gt; cache.put(request, response));
+  }
+
+  /**
+   * Busca una respuesta almacenada en una caché.
+   * @param cacheName Nombre no vacío de la caché.
+   * @param request URL o solicitud que se desea consultar.
+   * @param options Opciones de coincidencia admitidas por el navegador.
+   * @returns La respuesta encontrada o &#x60;undefined&#x60; si no existe.
+   */
+  match(
+    cacheName: string,
+    request: RequestInfo | URL,
+    options?: CacheQueryOptions,
+  ): Promise&lt;Response | undefined&gt; {
+    this.assertCacheName(cacheName);
+    return this.withCache(cacheName, &#x27;match&#x27;, (cache) &#x3D;&gt; cache.match(request, options));
+  }
+
+  /**
+   * Elimina un recurso de una caché, sin eliminar la caché completa.
+   * @param cacheName Nombre no vacío de la caché.
+   * @param request URL o solicitud del recurso que se desea eliminar.
+   * @param options Opciones de coincidencia admitidas por el navegador.
+   * @returns &#x60;true&#x60; si se eliminó un recurso; de lo contrario, &#x60;false&#x60;.
+   */
+  deleteEntry(
+    cacheName: string,
+    request: RequestInfo | URL,
+    options?: CacheQueryOptions,
+  ): Promise&lt;boolean&gt; {
+    this.assertCacheName(cacheName);
+    return this.withCache(cacheName, &#x27;deleteEntry&#x27;, (cache) &#x3D;&gt; cache.delete(request, options));
+  }
+
+  /** Valida que una caché tenga un nombre útil antes de acceder a la API del navegador. */
+  private assertCacheName(cacheName: string): void {
+    if (typeof cacheName !&#x3D;&#x3D; &#x27;string&#x27; || cacheName.trim().length &#x3D;&#x3D;&#x3D; 0) {
+      throw new TypeError(&#x27;El nombre de la caché debe contener al menos un carácter no vacío.&#x27;);
+    }
+  }
+
+  /** Abre una caché y ejecuta una operación sobre ella, convirtiendo errores nativos en errores tipados. */
+  private withCache&lt;T&gt;(
+    cacheName: string,
+    operation: Exclude&lt;CacheOperation, &#x27;open&#x27; | &#x27;keys&#x27; | &#x27;has&#x27; | &#x27;deleteCache&#x27;&gt;,
+    action: (cache: Cache) &#x3D;&gt; Promise&lt;T&gt;,
+  ): Promise&lt;T&gt; {
+    return this.withCacheStorage(operation, async (storage) &#x3D;&gt;
+      action(await storage.open(cacheName)),
+    );
+  }
+
+  /** Ejecuta una operación y convierte los errores nativos en errores tipados de la librería. */
+  private async withCacheStorage&lt;T&gt;(
+    operation: CacheOperation,
+    action: (storage: CacheStorage) &#x3D;&gt; Promise&lt;T&gt;,
+  ): Promise&lt;T&gt; {
+    if (this.cacheStorage &#x3D;&#x3D;&#x3D; null) {
+      throw new CacheStorageUnavailableError();
+    }
+    try {
+      return await action(this.cacheStorage);
+    } catch (error) {
+      throw new CacheStorageOperationError(operation, error);
+    }
+  }
+}
+</code></pre>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> comparación de resultados "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No hay resultados que coincidan "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
+            var COMPODOC_CURRENT_PAGE_URL = 'CacheStorageService.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

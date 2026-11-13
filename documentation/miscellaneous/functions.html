@@ -130,6 +130,9 @@
                 <td class="col-md-4">
                     <ul class="index-list">
                         <li>
+                            <a href="#browserCacheStorageFactory" title="projects/storage-manager/src/lib/cache-storage.token.ts" ><b>browserCacheStorageFactory</b>&nbsp;&nbsp;&nbsp;(projects/.../cache-storage.token.ts)</a>
+                        </li>
+                        <li>
                             <a href="#browserLocalStorageFactory" title="projects/storage-manager/src/lib/local-storage.token.ts" ><b>browserLocalStorageFactory</b>&nbsp;&nbsp;&nbsp;(projects/.../local-storage.token.ts)</a>
                         </li>
                     </ul>
@@ -139,7 +142,78 @@
     </table>
 </section>
 
-    <h3>projects/storage-manager/src/lib/local-storage.token.ts</h3>
+    <h3>projects/storage-manager/src/lib/cache-storage.token.ts</h3>
+    <section data-compodoc="block-methods">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="browserCacheStorageFactory"></a>
+                    <span class="name">
+                        <span ><b>browserCacheStorageFactory</b></span>
+                        <a href="#browserCacheStorageFactory"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>browserCacheStorageFactory(host)</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Resuelve Cache Storage de forma segura y permite usar la librería durante el renderizado del servidor.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parámetros :</b>
+
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Nombre</td>
+                                            <td>Opcional</td>
+                                                <td>Valor por defecto</td>
+                                                <td>Descripción</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>host</td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+                                            <td>
+                                                    <code>globalThis</code>
+                                            </td>
+
+                                            <td>
+                                                    <p>Objeto global del entorno; se puede sustituir para pruebas.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Devuelve : </b>    <code>CacheStorage | null</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>La implementación de CacheStorage o <code>null</code> si el navegador no la ofrece o bloquea su acceso.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>projects/storage-manager/src/lib/local-storage.token.ts</h3>
     <section data-compodoc="block-methods">
     <h3></h3>    <table class="table table-sm table-bordered">
         <tbody>
@@ -168,7 +242,7 @@
 
                             <div class="io-description">
                                 <b>Parámetros :</b>
-                                
+
                                 <table class="params">
                                     <thead>
                                         <tr>
