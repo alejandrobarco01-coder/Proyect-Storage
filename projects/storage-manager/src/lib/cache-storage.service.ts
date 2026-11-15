@@ -96,7 +96,12 @@ export class CacheStorageService {
     options?: CacheQueryOptions,
   ): Promise<Response | undefined> {
     this.assertCacheName(cacheName);
-    return this.withCache(cacheName, 'match', (cache) => cache.match(request, options));
+    return this.withCacheStorage('match', async (storage) => {
+      if (!(await storage.has(cacheName))) {
+        return undefined;
+      }
+      return (await storage.open(cacheName)).match(request, options);
+    });
   }
 
   /**
@@ -112,7 +117,12 @@ export class CacheStorageService {
     options?: CacheQueryOptions,
   ): Promise<boolean> {
     this.assertCacheName(cacheName);
-    return this.withCache(cacheName, 'deleteEntry', (cache) => cache.delete(request, options));
+    return this.withCacheStorage('deleteEntry', async (storage) => {
+      if (!(await storage.has(cacheName))) {
+        return false;
+      }
+      return (await storage.open(cacheName)).delete(request, options);
+    });
   }
 
   /** Valida que una caché tenga un nombre útil antes de acceder a la API del navegador. */
