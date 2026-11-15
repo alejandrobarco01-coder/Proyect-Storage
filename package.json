@@ -10,7 +10,7 @@
     "verify:package": "npm run build && node scripts/verify-package.mjs",
     "showcase:install": "npm run build && npm run showcase:prepare && npm install --prefix showcase",
     "showcase": "npm run build && npm run showcase:prepare && npm run start --prefix showcase",
-    "docs": "compodoc -p tsconfig.doc.json -d documentation --name \"Storage Manager\" --language es-ES --coverageTest 100 --coverageMinimumPerFile 100 --coverageTestThresholdFail true && compodoc -p tsconfig.doc.json -d documentation --name \"Storage Manager\" --language es-ES",
+    "docs": "compodoc -p tsconfig.doc.json -d documentation --name \"Storage Manager\" --language es-ES --coverageTest 100 --coverageMinimumPerFile 100 --coverageTestThresholdFail true",
     "docs:serve": "compodoc -s -d documentation -r 8080",
     "showcase:prepare": "node scripts/copy-showcase-library.mjs"
   },

@@ -14,11 +14,10 @@ export class AppComponent {
     private readonly cacheStorage: CacheStorageService,
   ) {}
 
-
   localKey = 'preferencias';
   localValue = '{"tema":"oscuro"}';
   cacheName = 'showcase-v1';
-  resourceUrl = '/ejemplo.json';
+  resourceUrl = 'assets/ejemplo.json';
   responseBody = '{"mensaje":"Respuesta guardada desde el Showcase"}';
   readonly localResult = signal('');
   readonly cacheResult = signal('');
