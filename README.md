@@ -29,7 +29,7 @@ La compilación se genera en `dist/storage-manager`; `npm run docs:serve` sirve 
 
 ## Showcase
 
-Como la primera publicación NPM sigue pendiente, el Showcase consume durante desarrollo el paquete compilado local (`file:../dist/storage-manager`), sin rutas internas ni código fuente de la librería.
+Como la primera publicación NPM sigue pendiente, el Showcase consume una copia del paquete compilado dentro de `showcase/vendor/storage-manager` (`file:vendor/storage-manager`). Así la aplicación y la librería resuelven la misma instalación Angular, sin rutas internas ni código fuente de la librería.
 
 ```bash
 npm run showcase:install
