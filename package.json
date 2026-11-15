@@ -8,10 +8,11 @@
     "test": "ng test storage-manager --watch=false --browsers=ChromeHeadless",
     "package": "npm run build && npm pack --prefix dist/storage-manager --pack-destination artifacts",
     "verify:package": "npm run build && node scripts/verify-package.mjs",
-    "showcase:install": "npm run build && npm install --prefix showcase",
-    "showcase": "npm run build && npm run start --prefix showcase",
+    "showcase:install": "npm run build && npm run showcase:prepare && npm install --prefix showcase",
+    "showcase": "npm run build && npm run showcase:prepare && npm run start --prefix showcase",
     "docs": "compodoc -p tsconfig.doc.json -d documentation --name \"Storage Manager\" --language es-ES --coverageTest 100 --coverageMinimumPerFile 100 --coverageTestThresholdFail true && compodoc -p tsconfig.doc.json -d documentation --name \"Storage Manager\" --language es-ES",
-    "docs:serve": "compodoc -s -d documentation -r 8080"
+    "docs:serve": "compodoc -s -d documentation -r 8080",
+    "showcase:prepare": "node scripts/copy-showcase-library.mjs"
   },
   "prettier": {
     "printWidth": 100,
