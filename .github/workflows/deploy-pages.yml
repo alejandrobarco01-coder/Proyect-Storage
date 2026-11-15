@@ -40,6 +40,8 @@ jobs:
         run: npm ci --prefix showcase
       - name: Build Showcase
         run: npm run build --prefix showcase -- --base-href /Proyect-Storage/
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
