@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CacheStorageService, LocalStorageService } from '@alejandrobarco01-coder/storage-manager';
 
@@ -9,8 +9,11 @@ import { CacheStorageService, LocalStorageService } from '@alejandrobarco01-code
   templateUrl: './app.component.html',
 })
 export class AppComponent {
-  private readonly localStorage = inject(LocalStorageService);
-  private readonly cacheStorage = inject(CacheStorageService);
+  constructor(
+    private readonly localStorage: LocalStorageService,
+    private readonly cacheStorage: CacheStorageService,
+  ) {}
+
 
   localKey = 'preferencias';
   localValue = '{"tema":"oscuro"}';
