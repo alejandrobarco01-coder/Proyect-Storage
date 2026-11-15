@@ -36,6 +36,8 @@ jobs:
         run: npm ci
       - name: Build storage library
         run: npm run build
+      - name: Copy built library into Showcase
+        run: npm run showcase:prepare
       - name: Install Showcase dependencies
         run: npm ci --prefix showcase
       - name: Build Showcase
