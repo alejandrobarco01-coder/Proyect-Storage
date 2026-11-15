@@ -7,7 +7,7 @@
     "build": "ng build"
   },
   "dependencies": {
-    "@alejandrobarco01-coder/storage-manager": "file:../dist/storage-manager",
+    "@alejandrobarco01-coder/storage-manager": "file:vendor/storage-manager",
     "@angular/common": "^20.3.0",
     "@angular/compiler": "^20.3.0",
     "@angular/core": "^20.3.0",
